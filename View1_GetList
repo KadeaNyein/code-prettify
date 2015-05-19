@@ -1,0 +1,93 @@
+-- View1_GetList
+
+SELECT TOP (100)     
+PERCENT
+ 
+CASE TB_7.Column7 
+WHEN 1 
+	THEN TB_7.Column5
+ELSE CASE 
+	WHEN TB_1.Column5 > 0 
+		THEN TB_15.Column2
+		ELSE TB_7.Column6 
+	END
+END AS Result_1,
+
+TB_14.Column2 AS Result_2,
+TB_2.Column2 AS Result_3,
+TB_13.Column3 AS Result_4,
+TB_12.Column4 AS Result_5,  
+TB_6.Column2 AS Result_6,
+
+CASE WHEN (TB_8.Column2 = 2 AND TB_7.Column7 = 0 AND TB_7.Column8 = 1) 
+	THEN TB_19.Column2 
+	ELSE TB_7.Column3 
+END AS Result_7, 
+
+CASE WHEN (TB_8.Column2 = 2 AND TB_7.Column7 = 0 AND TB_7.Column8 = 1) 
+	THEN TB_19.Column3 
+	ELSE TB_7.Column4 
+END AS Result_8,
+
+TB_7.Column7 AS Result_9,
+TB_7.Column2 AS Result_10,
+TB_8.Column2 AS Result_11,
+TB_3.Column4 AS Result_12,
+TB_5.Column1 AS Result_13,
+TB_2.Column1 AS Result_14,
+TB_6.Column3 AS Result_15,
+TB_6.Column4 AS Result_16,
+TB_1.Column1 AS Result_17,
+TB_3.Column2 AS Result_18,
+TB_3.Column5 AS Result_19,
+TB_6.Column6 AS Result_20,
+TB_15.Column1 AS Result_21,
+
+CASE WHEN TB_1.Column5 > 0 
+	THEN TB_16.Column3 
+	ELSE NULL 
+END AS Result_22,
+
+CASE WHEN TB_1.Column5 > 0 
+	THEN TB_16.Column1 
+	ELSE NULL 
+END AS Result_23,
+
+CASE WHEN TB_1.Column5 > 0 
+	THEN TB_16.Column2
+END AS Result_24,
+ 
+TB_16.Column4 AS Result_25,
+TB_7.Column8 AS Result_26
+
+FROM dbo.Table_1 AS TB_1 LEFT OUTER JOIN    
+dbo.Table_2 AS TB_2 ON TB_2.Column1 = TB_1.Column3 LEFT OUTER JOIN    
+dbo.Table_3 AS TB_3 ON TB_3.Column3 = TB_2.Column1 
+AND TB_3.Column1 = ( SELECT MAX(TB_3.Column1) AS Expr1
+					 FROM dbo.Table_3
+					 WHERE (TB_3.Column3 = TB_1.Column3) 
+					 AND (TB_3.Column2 = TB_1.Column4)
+					) 
+AND TB_1.Column4 = TB_3.Column2 LEFT OUTER JOIN    
+dbo.Table_4 AS TB_4 ON TB_4.Column1 = TB_3.Column5 LEFT OUTER JOIN    
+dbo.Table_5 AS TB_5 ON TB_4.Column2 = TB_5.Column1 LEFT OUTER JOIN    
+dbo.Table_6 AS TB_6 ON TB_6.Column1 = TB_1.Column1 AND TB_6.Column5 = TB_1.Column4 LEFT OUTER JOIN    
+dbo.Table_7 AS TB_7 ON TB_1.Column2 = TB_7.Column1 LEFT OUTER JOIN    
+dbo.Table_8 AS TB_8 ON TB_8.Column1 = TB_7.Column2 LEFT OUTER JOIN    
+dbo.Table_9 AS TB_9 ON TB_9.Column1 = TB_8.Column1 LEFT OUTER JOIN    
+dbo.Table_10 AS TB_10 ON TB_10.Column1 = TB_9.Column2 LEFT OUTER JOIN    
+dbo.Table_11 AS TB_11 ON TB_11.Column1 = TB_1.Column3 AND TB_11.Column2 = TB_10.Column2 LEFT OUTER JOIN    
+dbo.Table_12 AS TB_12 ON TB_12.Column1 = TB_7.Column1 AND TB_11.Column3 = TB_12.Column3 AND     
+TB_12.Column2 = TB_10.Column1 LEFT OUTER JOIN
+dbo.Table_13 AS TB_13 ON TB_10.Column2 = TB_13.Column1 AND TB_12.Column3 = TB_13.Column2 LEFT OUTER JOIN    
+dbo.Table_14 AS TB_14 ON TB_8.Column2 = TB_14.Column1 LEFT OUTER JOIN    
+dbo.Table_15 AS TB_15 ON TB_15.Column1 = TB_1.Column5 LEFT OUTER JOIN
+dbo.Table_16 AS TB_16 ON TB_15.Column3 = TB_16.Column1 LEFT OUTER JOIN    
+dbo.Table_17 AS TB_17 ON TB_17.Column1 = TB_1.Column4 LEFT OUTER JOIN    
+dbo.Table_18 AS TB_18 ON TB_18.Column1 = TB_17.Column2 LEFT OUTER JOIN 
+dbo.Table_19 AS TB_19 ON TB_7.Column1 = TB_19.Column1          
+WHERE (TB_18.Column2 IS NULL OR TB_18.Column2 = 0) 
+AND (TB_8.Column3 IS NULL OR TB_8.Column3 = 0) 
+AND (TB_16.Column4 IS NULL OR TB_16.Column4 = 0)
+AND ((TB_7.Column6 >= DATEADD(DAY, -5, getutcdate())) OR (TB_15.Column2 >= DATEADD(DAY, -5, getutcdate())))
+ORDER BY TB_1.Column1 DESC, Date DESC
